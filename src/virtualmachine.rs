@@ -21,13 +21,13 @@ impl VIRTUAL_MACHINE {
 
             match instructions {
                 Instruction::Load(value) => {
-                    self.register += *value;
+                    self.register = *value;
                 }
                 Instruction::Add(value) => {
-                    self.register -= *value;
+                    self.register += *value;
                 }
                 Instruction::Sub(value) => {
-                    self.register = *value;
+                    self.register -= *value;
                 }
                 Instruction::Print => {
                      println!("{}", self.register);

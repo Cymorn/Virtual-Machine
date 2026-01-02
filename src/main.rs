@@ -1,19 +1,22 @@
 mod instructions;
 mod virtualmachine;
+mod parser;
+
 
 use instructions::Instruction;
 use virtualmachine::VIRTUAL_MACHINE;
+use parser::parser_program;
 
+
+
+use std::fs;
 
 fn main() {
-    let program = vec![
-        Instruction::Load(10),
-        Instruction::Add(5),
-        Instruction::Sub(3),
-        Instruction::Print,
-        Instruction::Halt,
-    ];
+    let source = fs::read_to_string("program.vm")
+        .expect("Failed to read program file");
 
-    let mut virtualmachine = VIRTUAL_MACHINE::new(program);
-    virtualmachine.run();
+    let instructions = parser_program(&source);
+
+    let mut virtual_machine = virtualmachine::VIRTUAL_MACHINE::new(instructions);
+    virtual_machine.run();
 }
